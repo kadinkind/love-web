@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#ffb6c1">
+  <title>我们的小世界</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+</head>
+<body>
+  <!-- 登录弹窗 -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <h2>💖 欢迎来到我们的小世界</h2>
+      <p>请输入你的昵称</p>
+      <input type="text" id="nicknameInput" placeholder="你的名字..." maxlength="10">
+      <button onclick="saveNickname()">进入</button>
+    </div>
+  </div>
+
+  <!-- 顶部状态栏 -->
+  <header class="header">
+    <div class="love-days">
+      <div class="days-number" id="loveDays">0</div>
+      <div class="days-label">我们在一起的日子</div>
+    </div>
+  </header>
+
+  <!-- 主内容区 -->
+  <main class="content">
+    <!-- 留言板 -->
+    <section id="page-message" class="page active">
+      <h3 class="page-title">💌 留言板</h3>
+      <div class="message-list" id="messageList"></div>
+      <div class="input-bar">
+        <input type="text" id="messageInput" placeholder="想对TA说什么...">
+        <button onclick="sendMessage()">发送</button>
+      </div>
+    </section>
+
+    <!-- 相册 -->
+    <section id="page-album" class="page">
+      <h3 class="page-title">📷 我们的相册</h3>
+      <div class="upload-area">
+        <label class="upload-btn">
+          + 上传照片
+          <input type="file" id="photoInput" accept="image/*" hidden onchange="uploadPhoto()">
+        </label>
+        <input type="text" id="photoCaption" placeholder="照片描述（可选）">
+      </div>
+      <div class="photo-grid" id="photoGrid"></div>
+    </section>
+
+    <!-- 日记 -->
+    <section id="page-diary" class="page">
+      <h3 class="page-title">📝 日常日记</h3>
+      <div class="diary-editor">
+        <textarea id="diaryInput" placeholder="记录今天的小事..."></textarea>
+        <button onclick="saveDiary()">保存日记</button>
+      </div>
+      <div class="diary-list" id="diaryList"></div>
+    </section>
+
+    <!-- 纪念日 -->
+    <section id="page-anniversary" class="page">
+      <h3 class="page-title">🎀 纪念日</h3>
+      <div class="add-anniversary">
+        <input type="text" id="anniTitle" placeholder="纪念日名称">
+        <input type="date" id="anniDate">
+        <button onclick="addAnniversary()">添加</button>
+      </div>
+      <div class="anni-list" id="anniList"></div>
+    </section>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="message">💌<span>留言</span></button>
+    <button class="nav-item" data-page="album">📷<span>相册</span></button>
+    <button class="nav-item" data-page="diary">📝<span>日记</span></button>
+    <button class="nav-item" data-page="anniversary">🎀<span>纪念</span></button>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
+</body>
+</html>
